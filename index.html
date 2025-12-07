@@ -653,7 +653,7 @@
 
             motSecret = SEQUENCE_MOTS_SECRETS[currentLevel];
             
-            // CORRECTION CRUCIALE ICI : N'affiche PAS le mot secret
+            // CORRECTION CRUCIALE ICI : Affiche uniquement le numéro du niveau
             document.getElementById('levelTitle').textContent = `Mot Secret du Jour N°${currentLevel + 1}`; 
             
             mettreAJourUIJeu(partieTerminee);
@@ -698,7 +698,7 @@
             }
 
             if (trouve) {
-                // Révélation du mot secret UNIQUEMENT si trouvé
+                // Révélation du mot secret UNIQUEMENT si trouvé (partieTerminee = true)
                 document.getElementById('levelTitle').textContent = `Mot Secret du Jour N°${currentLevel + 1} : ${motSecret.toUpperCase()} 🎉`;
 
                 sauvegarderMeilleurScore(); 
