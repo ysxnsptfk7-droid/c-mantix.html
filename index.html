@@ -3,16 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sémantique Infini (Thème Nuit & Social)</title>
+    <title>Yvonsoft Arcade</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=all" rel="stylesheet">
-    
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
     
     <style>
         /* ==================================== */
@@ -44,7 +41,47 @@
         .hidden { display: none !important; }
 
         /* ==================================== */
-        /* 2. EN-TÊTE & PROFIL */
+        /* 2. ÉCRAN D'ACCUEIL */
+        /* ==================================== */
+        #welcomeScreen h2 {
+            font-size: 32px;
+            color: #00bcd4;
+            font-weight: 900;
+            margin-bottom: 30px;
+        }
+        .game-selection {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .game-card {
+            background-color: #2a2a2a;
+            padding: 25px;
+            border-radius: 12px;
+            cursor: pointer;
+            width: 45%;
+            transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
+            border: 2px solid #333;
+        }
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+            border-color: #00bcd4;
+        }
+        .game-card h3 {
+            color: #fff;
+            margin-top: 10px;
+            font-size: 20px;
+            font-weight: 800;
+        }
+        .game-card .icon {
+            font-size: 40px;
+            color: #ff9800;
+        }
+
+        /* ==================================== */
+        /* 3. EN-TÊTE & PROFIL (Mise à jour pour l'accueil) */
         /* ==================================== */
         #profileArea {
             width: 100%;
@@ -57,11 +94,6 @@
             background-color: #2a2a2a;
             border-radius: 16px;
             border: 1px solid #3a3a3a;
-            animation: slideIn 0.8s ease-out;
-        }
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
         }
         #profileName {
             font-size: 22px;
@@ -69,34 +101,27 @@
             color: #00bcd4;
             text-shadow: 0 0 5px rgba(0, 188, 212, 0.3);
         }
-        .change-profile-btn {
-            background-color: #444;
-            color: #ccc;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: background-color 0.2s, color 0.2s;
+        .home-button {
+             background-color: #4caf50; 
+             color: white; 
+             padding: 8px 15px;
+             border: none;
+             border-radius: 10px;
+             cursor: pointer;
+             font-weight: 600;
+             margin-right: 10px;
+             transition: background-color 0.2s;
         }
-        .change-profile-btn:hover {
-            background-color: #555;
-            color: #fff;
+        .home-button:hover {
+            background-color: #388e3c;
         }
 
+        /* Styles de Sémantique Infini (inchangés ou adaptés) */
         h1 { font-size: 38px; font-weight: 900; color: #ffffff; margin-bottom: 5px; }
-        .level-title { 
-            font-size: 26px; 
-            font-weight: 700; 
-            color: #aaaaaa; 
-            margin-bottom: 20px; 
-        }
+        .level-title { font-size: 26px; font-weight: 700; color: #aaaaaa; margin-bottom: 20px; }
         .subtitle { color: #888888; }
         .attempt-counter { font-size: 18px; font-weight: 600; margin-bottom: 15px; color: #f0f0f0; }
 
-        /* ==================================== */
-        /* NOUVEAU: CLASSEMENT LOCAL */
-        /* ==================================== */
         #bestScoreDisplay {
             margin-bottom: 15px;
             padding: 8px 15px;
@@ -109,17 +134,8 @@
             justify-content: center;
             align-items: center;
             gap: 10px;
-            animation: pulse 1.5s infinite alternate;
         }
-
-        @keyframes pulse {
-            from { box-shadow: 0 0 0px rgba(255, 235, 59, 0.5); }
-            to { box-shadow: 0 0 10px rgba(255, 235, 59, 0.8); }
-        }
-
-        /* ==================================== */
-        /* 3. INPUTS ET BOUTONS */
-        /* ==================================== */
+        
         .input-area { display: flex; gap: 12px; margin-bottom: 35px; }
         .input-area input { 
             flex-grow: 1; padding: 18px 20px; border: 1px solid #444; 
@@ -144,227 +160,425 @@
             cursor: pointer; transition: background-color 0.2s, transform 0.1s;
         }
         .reset-button { background-color: #f44336 !important; color: white !important; }
-        .challenge-exit-button { 
-            background-color: #00bcd4; 
-            color: #1a1a1a;
-        }
-
+        
         /* ==================================== */
-        /* 4. TABLEAU */
+        /* 4. STYLES DE SNAKE */
         /* ==================================== */
-        .results table { 
-            width: 100%; 
-            border-collapse: separate; 
-            border-spacing: 0 5px; 
-            text-align: left; 
-        }
-        .results th { 
-            padding: 10px 0; 
-            font-weight: 500; 
-            color: #888888; 
-            text-transform: uppercase; 
-            font-size: 13px; 
-        }
-        .results td { 
-            padding: 12px 10px; 
-            font-weight: 500; 
-            font-size: 16px;
-            background-color: #333333; 
-            color: #f0f0f0; 
-            border: none; 
-            border-radius: 4px; 
-            position: relative; 
-            z-index: 1; 
-        }
-        .score-900 { color: #ffeb3b; } 
-        .score-700 { color: #ff9800; } 
-        .temp-win { 
-            color: #4caf50; font-weight: 700; letter-spacing: 1px;
-            text-shadow: 0 0 5px rgba(76, 175, 80, 0.7); animation: flashSuccess 1.5s infinite alternate;
-        } 
-        .results tbody tr {
-             transition: background-color 0.2s; 
-             opacity: 0;
-             animation: fadeIn 0.5s forwards;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        /* ==================================== */
-        /* 5. PANNEAUX SOCIAUX & DÉFI */
-        /* ==================================== */
-        .social-panel {
-            background: #2a2a2a;
-            padding: 20px;
-            border-radius: 16px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-            margin-top: 20px;
-            width: 100%;
-            max-width: 650px;
-            border: 1px solid #333;
-        }
-        .search-input-area {
+        #snakeGame {
             display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-        .search-input-area input {
-            flex-grow: 1;
-            padding: 12px 15px;
-            border-radius: 8px;
-            border: 1px solid #444;
-            background-color: #333;
-            color: #f0f0f0;
-        }
-        .search-input-area button {
-            background-color: #ff9800;
-            color: #1a1a1a;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 700;
-            transition: background-color 0.2s;
-        }
-        .friend-result {
-            background-color: #333;
-            padding: 15px;
-            border-radius: 10px;
-            display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             align-items: center;
-            margin-top: 10px;
-            border-left: 5px solid #ff9800;
-            animation: popIn 0.3s forwards;
-            animation-delay: 0.1s;
         }
-        .friend-result button {
-             background-color: #4caf50;
-             color: white;
-             border: none;
-             padding: 8px 15px;
-             border-radius: 8px;
-             cursor: pointer;
-             font-weight: 600;
-             transition: background-color 0.2s;
-        }
-        .challenge-message {
-            margin-top: 15px;
-            padding: 15px;
+        #gameBoard {
+            border: 5px solid #00bcd4;
             background-color: #1a1a1a;
-            border: 1px dashed #4caf50;
-            border-radius: 8px;
-            color: #4caf50;
-            font-weight: 600;
+            box-shadow: 0 0 20px rgba(0, 188, 212, 0.5);
+            margin-bottom: 20px;
         }
-        .challenge-message button {
-            background-color: #00bcd4;
-            color: #1a1a1a;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 8px;
-            margin-left: 10px;
-            cursor: pointer;
-            font-weight: 700;
-            transition: background-color 0.2s;
+        .snake-cell {
+            background-color: #4caf50; /* Vert pour le serpent */
+            border-radius: 2px;
         }
-
+        .food-cell {
+            background-color: #f44336; /* Rouge pour la nourriture */
+            border-radius: 50%;
+        }
+        .snake-score {
+            font-size: 24px;
+            font-weight: 800;
+            color: #ffeb3b;
+        }
+        .snake-instructions {
+            margin-top: 15px;
+            color: #888;
+        }
     </style>
 </head>
 <body>
     
-    <div class="container hidden" id="loginScreen">
-        <h2>Bienvenue dans Sémantique Infini</h2>
-        <p class="subtitle" style="margin-bottom: 30px;">Veuillez entrer votre pseudo pour commencer à jouer.</p>
-        <input type="text" id="usernameInput" placeholder="Votre Pseudo (max 12 caractères)" maxlength="12" onkeydown="if(event.key === 'Enter') saveProfile()">
-        <button onclick="saveProfile()">Commencer la Partie</button>
-    </div>
-
     <div id="profileArea" class="hidden">
         <div>
-            <i class="fa-solid fa-user-astronaut" style="color:#00bcd4; margin-right: 10px;"></i> Joueur : <span id="profileName"></span>
+            <button class="home-button" onclick="goToWelcomeScreen()"><i class="fa-solid fa-house"></i> Accueil</button>
+            <i class="fa-solid fa-user-astronaut" style="color:#00bcd4; margin-right: 10px;"></i> Joueur : <span id="profileName">--</span>
         </div>
         <button class="change-profile-btn" onclick="resetProfile()">Changer de Pseudo</button>
     </div>
 
-    <div class="main-game-area hidden" id="mainGameArea">
-        <div class="container" id="gameContainer">
-            <h1>Sémantique Infini</h1>
-            <div class="level-title" id="levelTitle">Mot Secret du Jour N°1</div>
-            <p class="subtitle">Trouvez le mot secret en vous basant sur la proximité sémantique.</p>
+    <div class="container" id="welcomeScreen">
+        <h2>Yvonsoft Arcade</h2>
+        <p class="subtitle">Bienvenue ! Choisissez un jeu pour commencer.</p>
+        <div class="game-selection">
             
-            <div id="bestScoreDisplay">
-                 <i class="fa-solid fa-trophy" style="color:#ffeb3b;"></i> 
-                 Meilleur Score (local) : <span id="bestScoreValue">--</span> tentatives
+            <div class="game-card" onclick="startSemantique()">
+                <i class="icon fa-solid fa-brain"></i>
+                <h3>Sémantique Infini</h3>
+                <p class="subtitle">Le jeu de proximité sémantique.</p>
             </div>
             
-            <div class="attempt-counter">
-                Tentatives : <span id="attemptCount">0</span>
+            <div class="game-card" onclick="startSnake()">
+                <i class="icon fa-solid fa-snake"></i>
+                <h3>Snake</h3>
+                <p class="subtitle">Le classique jeu du serpent.</p>
             </div>
-            
-            <div class="action-buttons" id="challengeExitArea">
-                <button class="new-game-button challenge-exit-button hidden" id="exitChallengeButton" onclick="quitterDefi()">
-                    <i class="fa-solid fa-arrow-left"></i> Revenir au Mode Normal
-                </button>
-            </div>
+        </div>
+    </div>
+    
+    <div class="container hidden" id="loginScreen">
+        <h2>Démarrez votre session</h2>
+        <p class="subtitle" style="margin-bottom: 30px;">Veuillez entrer votre pseudo pour accéder aux jeux.</p>
+        <input type="text" id="usernameInput" placeholder="Votre Pseudo (max 12 caractères)" maxlength="12" onkeydown="if(event.key === 'Enter') saveProfile()">
+        <button onclick="saveProfile()">Accéder à l'Arcade</button>
+    </div>
 
-            <div class="input-area">
-                <input type="text" id="wordInput" placeholder="Saisir un mot ici..." autofocus onkeydown="if(event.key === 'Enter') proposerMot()">
-                <button onclick="proposerMot()" id="proposeButton">Proposer</button>
-            </div>
-            
-            <div class="error-message" id="errorMessage"></div>
-
-            <div class="results">
-                <table>
-                    <thead>
-                        <tr>
-                            <th style="width: 45%; padding-left: 10px;">Mot Proposé</th>
-                            <th style="width: 25%;">Score (0-1000)</th>
-                            <th style="width: 30%;">Température</th>
-                        </tr>
-                    </thead>
-                    <tbody id="scoreTableBody">
+    <div id="gameArea" class="hidden">
+        
+        <div class="main-game-area" id="semantiqueGameArea">
+            <div class="container" id="gameContainer">
+                <h1>Sémantique Infini</h1>
+                <div class="level-title" id="levelTitle">Mot Secret du Jour N°1</div>
+                <p class="subtitle">Trouvez le mot secret en vous basant sur la proximité sémantique.</p>
+                <div id="bestScoreDisplay">
+                     <i class="fa-solid fa-trophy" style="color:#ffeb3b;"></i> 
+                     Meilleur Score (local) : <span id="bestScoreValue">--</span> tentatives
+                </div>
+                <div class="attempt-counter">
+                    Tentatives : <span id="attemptCount">0</span>
+                </div>
+                <div class="action-buttons" id="challengeExitArea">
+                    <button class="new-game-button challenge-exit-button hidden" id="exitChallengeButton" onclick="quitterDefi()">
+                        <i class="fa-solid fa-arrow-left"></i> Revenir au Mode Normal
+                    </button>
+                </div>
+                <div class="input-area">
+                    <input type="text" id="wordInput" placeholder="Saisir un mot ici..." autofocus onkeydown="if(event.key === 'Enter') proposerMot()">
+                    <button onclick="proposerMot()" id="proposeButton">Proposer</button>
+                </div>
+                <div class="error-message" id="errorMessage"></div>
+                <div class="results">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width: 45%; padding-left: 10px;">Mot Proposé</th>
+                                <th style="width: 25%;">Score (0-1000)</th>
+                                <th style="width: 30%;">Température</th>
+                            </tr>
+                        </thead>
+                        <tbody id="scoreTableBody">
                         </tbody>
-                </table>
+                    </table>
+                </div>
+                <div class="action-buttons" id="normalGameActionButtons">
+                    <button class="new-game-button" id="nextLevelButton" onclick="passerAuMotSuivant()">Passer au Mot Suivant</button>
+                    <button class="new-game-button reset-button" onclick="resetProgress()">Réinitialiser la Progression</button>
+                </div>
             </div>
             
-            <div class="action-buttons" id="normalGameActionButtons">
-                <button class="new-game-button" id="nextLevelButton" onclick="passerAuMotSuivant()">Passer au Mot Suivant</button>
-                <button class="new-game-button reset-button" onclick="resetProgress()">Réinitialiser la Progression</button>
+            <div class="chart-container social-panel" id="chartContainer" style="background: #1e1e1e; border-radius: 16px;">
+                <h2>Progression du Score</h2>
+                <canvas id="scoreChart"></canvas>
             </div>
-            
+            <div id="socialPanel" class="social-panel">
+                <h2><i class="fa-solid fa-users" style="color:#ff9800;"></i> Jouer en Ligne / Amis (Simulé)</h2>
+                <div class="search-input-area">
+                    <input type="text" id="friendSearchInput" placeholder="Rechercher un pseudo (Ex: Joueur2)" onkeydown="if(event.key === 'Enter') searchFriend()">
+                    <button onclick="searchFriend()"><i class="fa-solid fa-magnifying-glass"></i> Rechercher</button>
+                </div>
+                <div id="searchResults">
+                    <p class="social-info">Cherchez votre propre pseudo ou "Joueur2" pour voir le bouton "Défier".</p>
+                </div>
+            </div>
         </div>
         
-        <div class="chart-container social-panel" id="chartContainer" style="background: #1e1e1e; border-radius: 16px;">
-            <h2>Progression du Score</h2>
-            <canvas id="scoreChart"></canvas>
-        </div>
-
-        <div id="socialPanel" class="social-panel">
-            <h2><i class="fa-solid fa-users" style="color:#ff9800;"></i> Jouer en Ligne / Amis (Simulé)</h2>
-            <div class="search-input-area">
-                <input type="text" id="friendSearchInput" placeholder="Rechercher un pseudo (Ex: Joueur2)" onkeydown="if(event.key === 'Enter') searchFriend()">
-                <button onclick="searchFriend()"><i class="fa-solid fa-magnifying-glass"></i> Rechercher</button>
-            </div>
-            <div id="searchResults">
-                <p class="social-info">Cherchez votre propre pseudo ou "Joueur2" pour voir le bouton "Défier".</p>
+        <div class="main-game-area hidden" id="snakeGameArea">
+            <div class="container">
+                <h1>Snake 🐍</h1>
+                <p class="snake-score">Score: <span id="snakeScore">0</span></p>
+                <canvas id="gameBoard"></canvas>
+                <div class="action-buttons">
+                    <button class="new-game-button" onclick="startGame()">Nouvelle Partie</button>
+                    <button class="new-game-button reset-button" onclick="endGame()">Arrêter le Jeu</button>
+                </div>
+                <p class="snake-instructions">Utilisez les **flèches** pour vous déplacer.</p>
             </div>
         </div>
-    </div>
-
-
-    <div class="easter-egg-message" id="easterEggMessage">
-        T'es bête ou quoi ? 💩
-        <div style="margin-top: 20px;">
-             <button class="new-game-button" onclick="nouvellePartie()">Nouvelle Partie</button>
+        
+        <div class="easter-egg-message" id="easterEggMessage">
+            T'es bête ou quoi ? 💩
+            <div style="margin-top: 20px;">
+                 <button class="new-game-button" onclick="nouvellePartie()">Nouvelle Partie</button>
+            </div>
         </div>
-    </div>
 
+    </div>
 
     <script>
+        // ====================================================================
+        // GESTION DU PROFIL & DE L'INTERFACE GLOBALE
+        // ====================================================================
+        let username = "";
+        let currentGame = null; // 'semantique' ou 'snake'
+
+        function loadProfile() {
+            username = localStorage.getItem('semantique_infini_username');
+            if (username) {
+                document.getElementById('profileName').textContent = username;
+                document.getElementById('welcomeScreen').classList.add('hidden');
+                document.getElementById('loginScreen').classList.add('hidden');
+                document.getElementById('profileArea').classList.remove('hidden');
+                document.getElementById('gameArea').classList.remove('hidden');
+                // Si l'utilisateur a déjà un pseudo, on affiche l'écran de bienvenue
+                goToWelcomeScreen();
+            } else {
+                // S'il n'y a pas de pseudo, on va directement à l'écran de pseudo
+                goToLoginScreen();
+            }
+        }
+        
+        function goToWelcomeScreen() {
+             document.getElementById('welcomeScreen').classList.remove('hidden');
+             document.getElementById('loginScreen').classList.add('hidden');
+             document.getElementById('profileArea').classList.add('hidden');
+             document.getElementById('gameArea').classList.add('hidden');
+             
+             // Assurez-vous que les zones de jeu sont masquées
+             document.getElementById('semantiqueGameArea').classList.add('hidden');
+             document.getElementById('snakeGameArea').classList.add('hidden');
+             document.getElementById('profileArea').classList.remove('hidden'); // On affiche quand même le profil pour les options
+             
+             // Si Snake est actif, arrêtez-le
+             if (currentGame === 'snake') {
+                 endGame(); 
+             }
+             currentGame = null;
+        }
+
+        function goToLoginScreen() {
+             document.getElementById('welcomeScreen').classList.add('hidden');
+             document.getElementById('loginScreen').classList.remove('hidden');
+             document.getElementById('profileArea').classList.add('hidden');
+             document.getElementById('gameArea').classList.add('hidden');
+             document.getElementById('usernameInput').focus();
+        }
+
+
+        function saveProfile() {
+            const input = document.getElementById('usernameInput');
+            let newUsername = input.value.trim();
+
+            if (newUsername.length < 3) {
+                alert("Le pseudo doit contenir au moins 3 caractères.");
+                return;
+            }
+            if (newUsername.length > 12) {
+                 newUsername = newUsername.substring(0, 12); 
+            }
+            
+            localStorage.setItem('semantique_infini_username', newUsername);
+            loadProfile(); 
+        }
+        
+        function resetProfile() {
+            if (confirm(`Êtes-vous sûr de vouloir changer de pseudo ? (La progression locale de Sémantique Infini ne sera pas effacée)`)) {
+                localStorage.removeItem('semantique_infini_username');
+                document.getElementById('usernameInput').value = "";
+                loadProfile();
+            }
+        }
+
+        // ====================================
+        // DÉMARRAGE DES JEUX
+        // ====================================
+        
+        function startSemantique() {
+            if (!username) {
+                goToLoginScreen();
+                return;
+            }
+            currentGame = 'semantique';
+            document.getElementById('welcomeScreen').classList.add('hidden');
+            document.getElementById('semantiqueGameArea').classList.remove('hidden');
+            document.getElementById('snakeGameArea').classList.add('hidden');
+            document.getElementById('gameArea').classList.remove('hidden');
+            
+            // Logique spécifique à Sémantique (rechargement de la partie)
+            chargerProgression(); 
+        }
+
+        function startSnake() {
+            if (!username) {
+                 goToLoginScreen();
+                 return;
+            }
+            currentGame = 'snake';
+            document.getElementById('welcomeScreen').classList.add('hidden');
+            document.getElementById('semantiqueGameArea').classList.add('hidden');
+            document.getElementById('snakeGameArea').classList.remove('hidden');
+            document.getElementById('gameArea').classList.remove('hidden');
+            
+            // Logique spécifique à Snake (lancement ou préparation)
+            initializeSnake(); 
+        }
+
+        // ====================================================================
+        // LOGIQUE DU JEU SNAKE (NOUVEAU)
+        // ====================================================================
+        
+        const GRID_SIZE = 20;
+        const TILE_SIZE = 25; // Taille de chaque cellule en pixels
+        let snake = [];
+        let food = {};
+        let dx = 0; // direction x
+        let dy = 0; // direction y
+        let gameLoop = null;
+        let speed = 150; // Millisecondes
+        let score = 0;
+        let canvas, ctx;
+        
+        function initializeSnake() {
+             canvas = document.getElementById('gameBoard');
+             canvas.width = GRID_SIZE * TILE_SIZE;
+             canvas.height = GRID_SIZE * TILE_SIZE;
+             ctx = canvas.getContext('2d');
+             
+             // Écouteur d'événements pour les flèches directionnelles
+             document.removeEventListener('keydown', handleKeyPress); // Nettoyage de l'ancien listener
+             document.addEventListener('keydown', handleKeyPress);
+             
+             resetSnakeGame();
+        }
+
+        function resetSnakeGame() {
+            // Arrête l'ancienne boucle de jeu si elle existe
+            if (gameLoop) clearInterval(gameLoop);
+            
+            score = 0;
+            document.getElementById('snakeScore').textContent = score;
+
+            // Position initiale du serpent
+            snake = [{ x: 10, y: 10 }];
+            dx = TILE_SIZE;
+            dy = 0;
+            
+            generateFood();
+            drawGame();
+        }
+        
+        function startGame() {
+             resetSnakeGame(); 
+             // Lance la nouvelle boucle de jeu
+             gameLoop = setInterval(tick, speed);
+        }
+        
+        function endGame() {
+            if (gameLoop) {
+                clearInterval(gameLoop);
+                gameLoop = null;
+                alert(`Partie terminée ! Votre score : ${score}`);
+                // Optionnel : enregistrer le score en ligne ici si Firebase est implémenté
+            }
+        }
+        
+        function handleKeyPress(event) {
+            if (currentGame !== 'snake' || gameLoop === null) return; // Ignore si pas dans le jeu Snake ou pas de partie lancée
+
+            const KEY_LEFT = 37;
+            const KEY_UP = 38;
+            const KEY_RIGHT = 39;
+            const KEY_DOWN = 40;
+            
+            const keyPressed = event.keyCode;
+            
+            // Empêche le retournement immédiat
+            const goingUp = dy === -TILE_SIZE;
+            const goingDown = dy === TILE_SIZE;
+            const goingRight = dx === TILE_SIZE;
+            const goingLeft = dx === -TILE_SIZE;
+
+            if (keyPressed === KEY_LEFT && !goingRight) { dx = -TILE_SIZE; dy = 0; }
+            if (keyPressed === KEY_UP && !goingDown) { dx = 0; dy = -TILE_SIZE; }
+            if (keyPressed === KEY_RIGHT && !goingLeft) { dx = TILE_SIZE; dy = 0; }
+            if (keyPressed === KEY_DOWN && !goingUp) { dx = 0; dy = TILE_SIZE; }
+        }
+
+        function generateFood() {
+            let newFood;
+            do {
+                // Génère des coordonnées dans la grille (multiples de TILE_SIZE)
+                newFood = {
+                    x: Math.floor(Math.random() * GRID_SIZE) * TILE_SIZE,
+                    y: Math.floor(Math.random() * GRID_SIZE) * TILE_SIZE
+                };
+            } while (snake.some(segment => segment.x === newFood.x && segment.y === newFood.y));
+            
+            food = newFood;
+        }
+        
+        function drawGame() {
+            // Nettoyer le canvas
+            ctx.fillStyle = '#1a1a1a'; 
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Dessiner la nourriture
+            ctx.fillStyle = '#f44336';
+            ctx.beginPath();
+            ctx.arc(food.x + TILE_SIZE / 2, food.y + TILE_SIZE / 2, TILE_SIZE / 2, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // Dessiner le serpent
+            ctx.fillStyle = '#4caf50';
+            snake.forEach((segment, index) => {
+                if (index === 0) { // Tête du serpent
+                    ctx.fillStyle = '#00bcd4';
+                } else {
+                    ctx.fillStyle = '#4caf50';
+                }
+                ctx.fillRect(segment.x, segment.y, TILE_SIZE, TILE_SIZE);
+            });
+        }
+
+        function tick() {
+            // Nouvelle tête du serpent
+            const head = { x: snake[0].x + dx, y: snake[0].y + dy };
+
+            // Vérification des collisions
+            if (
+                // Collision avec les murs
+                head.x < 0 || head.x >= canvas.width ||
+                head.y < 0 || head.y >= canvas.height ||
+                // Collision avec lui-même
+                snake.slice(1).some(segment => segment.x === head.x && segment.y === head.y)
+            ) {
+                endGame();
+                return;
+            }
+
+            // Ajouter la nouvelle tête
+            snake.unshift(head);
+            
+            // Vérification de la nourriture
+            if (head.x === food.x && head.y === food.y) {
+                score++;
+                document.getElementById('snakeScore').textContent = score;
+                generateFood();
+                // Augmenter la vitesse légèrement
+                if (speed > 50) {
+                     speed -= 2; 
+                     clearInterval(gameLoop);
+                     gameLoop = setInterval(tick, speed);
+                }
+            } else {
+                // Retirer la queue si aucune nourriture n'est mangée
+                snake.pop();
+            }
+
+            drawGame();
+        }
+        
+        // ====================================================================
+        // LOGIQUE DU JEU SÉMANTIQUE (Mise à jour pour être compatible avec la nouvelle interface)
+        // (Copier l'intégralité du code Sémantique ici)
+        // ====================================================================
+        
         // --- DONNÉES DU JEU (Inchangées) ---
         const SEQUENCE_MOTS_SECRETS = [
             "chien", "ordinateur", "voyage", "musique", "montagne", 
@@ -386,233 +600,29 @@
             "argent": { "richesse": 900, "banque": 850, "travail": 750, "payer": 800, "monnaie": 950, "economie": 820, "fortune": 780 }
         };
         
-        // --- VARIABLES GLOBALES ---
+        // --- VARIABLES GLOBALES SÉMANTIQUE ---
         let currentLevel = 0;
         let motSecret = "";
         let essais = [];
         let totalEssais = 0;
         let partieTerminee = false;
         let chartInstance;
-        let username = "";
-        
-        // Variables pour le mode Défi Simulé
         const MOT_DEFI = "mystère"; 
         let isChallengeMode = false;
-        let originalMotSecret = ""; 
 
-
-        // ====================================
-        // GESTION DU PROFIL
-        // (Inchangé)
-        // ====================================
-
-        function loadProfile() {
-            username = localStorage.getItem('semantique_infini_username');
-            if (username) {
-                document.getElementById('profileName').textContent = username;
-                document.getElementById('loginScreen').classList.add('hidden');
-                document.getElementById('profileArea').classList.remove('hidden');
-                document.getElementById('mainGameArea').classList.remove('hidden');
-                chargerProgression(); 
-            } else {
-                document.getElementById('loginScreen').classList.remove('hidden');
-                document.getElementById('profileArea').classList.add('hidden');
-                document.getElementById('mainGameArea').classList.add('hidden');
-                document.getElementById('usernameInput').focus();
-            }
-        }
-
-        function saveProfile() {
-            const input = document.getElementById('usernameInput');
-            let newUsername = input.value.trim();
-
-            if (newUsername.length < 3) {
-                alert("Le pseudo doit contenir au moins 3 caractères.");
-                return;
-            }
-            if (newUsername.length > 12) {
-                 newUsername = newUsername.substring(0, 12); 
-            }
-            
-            localStorage.setItem('semantique_infini_username', newUsername);
-            loadProfile(); 
-        }
         
-        function resetProfile() {
-            if (confirm(`Êtes-vous sûr de vouloir changer de pseudo ? (Votre progression ne sera pas effacée)`)) {
-                localStorage.removeItem('semantique_infini_username');
-                document.getElementById('usernameInput').value = "";
-                loadProfile();
-            }
-        }
-
-        // ====================================
-        // GESTION SOCIALE & DÉFI (SIMULÉ)
-        // (Inchangé)
-        // ====================================
-        
-        function searchFriend() {
-            const searchInput = document.getElementById('friendSearchInput');
-            const resultsDiv = document.getElementById('searchResults');
-            const query = searchInput.value.trim();
-            resultsDiv.innerHTML = '';
-            
-            if (!query) {
-                resultsDiv.innerHTML = '<p class="social-info">Veuillez entrer un pseudo à rechercher.</p>';
-                return;
-            }
-
-            resultsDiv.innerHTML = '<p class="social-info" style="color:#00bcd4;"><i class="fa-solid fa-spinner fa-spin"></i> Recherche en cours...</p>';
-
-            setTimeout(() => {
-                const myUsername = localStorage.getItem('semantique_infini_username');
-                
-                if (query.toLowerCase() === myUsername.toLowerCase() || query.toLowerCase() === "joueur2") {
-                    const friendName = (query.toLowerCase() === myUsername.toLowerCase()) ? `${myUsername} (Vous)` : query;
-                    const statusColor = (query.toLowerCase() === myUsername.toLowerCase()) ? '#ff9800' : '#4caf50';
-                    
-                    resultsDiv.innerHTML = `
-                        <div class="friend-result">
-                            <span class="friend-name"><i class="fa-solid fa-user" style="color:${statusColor}; margin-right: 5px;"></i> ${friendName}</span>
-                            <span class="friend-status" style="color: ${statusColor};"><i class="fa-solid fa-circle-dot"></i> En ligne</span>
-                            <button onclick="proposerDefi('${friendName}')">Défier</button>
-                        </div>
-                    `;
-                } 
-                else if (query.length > 0) {
-                     resultsDiv.innerHTML = `
-                        <p class="social-info" style="color:#f44336;">Aucun joueur correspondant au pseudo "${query}" trouvé.</p>
-                        <p class="social-info" style="margin-top: 15px;">**NOTE :** Cette fonctionnalité nécessite un serveur web réel pour lier les joueurs.</p>
-                    `;
-                }
-
-                searchInput.value = ''; 
-
-            }, 1000); 
-        }
-
-        function proposerDefi(ami) {
-            const resultsDiv = document.getElementById('searchResults');
-            resultsDiv.innerHTML = `
-                <div class="challenge-message">
-                    Défi envoyé à **${ami}** ! ⚔️
-                    <p style="font-weight: 400; font-size: 13px; margin-top: 8px;">
-                        Mot secret choisi pour ce défi : **${MOT_DEFI.toUpperCase()}**.
-                        Vous allez jouer maintenant. ${ami} devra battre votre score !
-                    </p>
-                    <button onclick="lancerDefi()">Commencer le Défi</button>
-                </div>
-            `;
-            if (ami.includes('(Vous)')) {
-                 resultsDiv.querySelector('button').textContent = "Lancer le Défi (Local)";
-            }
-        }
-
-        function lancerDefi() {
-            if (motSecret) {
-                originalMotSecret = motSecret;
-            }
-            
-            isChallengeMode = true;
-            motSecret = MOT_DEFI;
-            essais = []; 
-            totalEssais = 0;
-            partieTerminee = false;
-
-            document.getElementById('levelTitle').textContent = `⚔️ Défi en Ligne : Mot ${MOT_DEFI.toUpperCase()} ⚔️`;
-            
-            mettreAJourUIJeu(false);
-            afficherResultats();
-            
-            document.getElementById('socialPanel').classList.add('hidden');
-            document.getElementById('exitChallengeButton').classList.remove('hidden'); 
-            document.getElementById('normalGameActionButtons').classList.add('hidden'); 
-            document.getElementById('bestScoreDisplay').classList.add('hidden'); // Cache le score local
-            document.getElementById('wordInput').focus();
-        }
-
-        function terminerDefi() {
-            const scoreDefi = totalEssais;
-            alert(`Défi terminé en ${scoreDefi} tentatives ! Votre score a été envoyé. Le mot secret était : ${motSecret}.`);
-            
-            isChallengeMode = false;
-            
-            chargerProgression();
-            
-            document.getElementById('socialPanel').classList.remove('hidden');
-            document.getElementById('searchResults').innerHTML = '<p class="social-info">Défi terminé. Cherchez un nouvel ami ou reprenez les niveaux.</p>';
-            
-            document.getElementById('exitChallengeButton').classList.add('hidden'); 
-            document.getElementById('normalGameActionButtons').classList.remove('hidden'); 
-            document.getElementById('bestScoreDisplay').classList.remove('hidden'); // Affiche le score local
-        }
-        
-        function quitterDefi() {
-            if (confirm("Êtes-vous sûr de vouloir abandonner le défi en cours ? Vos tentatives ne seront pas sauvegardées comme score de défi.")) {
-                isChallengeMode = false;
-                
-                // On recharge l'état de la partie normale (le niveau en cours)
-                chargerProgression();
-                
-                // Rétablir les affichages
-                document.getElementById('socialPanel').classList.remove('hidden');
-                document.getElementById('exitChallengeButton').classList.add('hidden'); 
-                document.getElementById('normalGameActionButtons').classList.remove('hidden'); 
-                document.getElementById('bestScoreDisplay').classList.remove('hidden'); // Affiche le score local
-            }
-        }
-
-        // ====================================
-        // GESTION DU MEILLEUR SCORE LOCAL
-        // (Inchangé)
-        // ====================================
-
-        function sauvegarderMeilleurScore() {
-            if (isChallengeMode || !partieTerminee) {
-                return;
-            }
-            
-            // La clé de sauvegarde est spécifique au niveau actuel
-            const key = `semantique_infini_bestscore_${currentLevel}`;
-            
-            const bestScoreActuel = parseInt(localStorage.getItem(key)) || Infinity;
-            
-            if (totalEssais < bestScoreActuel) {
-                localStorage.setItem(key, totalEssais.toString());
-                afficherMeilleurScore();
-                if (bestScoreActuel !== Infinity) {
-                    // On alerte que le record a été battu (sauf si c'est la première fois)
-                    alert(`Nouveau Record pour le mot "${motSecret.toUpperCase()}" ! ${totalEssais} tentatives.`);
-                }
-            }
-        }
-
-        function afficherMeilleurScore() {
-            if (isChallengeMode) {
-                document.getElementById('bestScoreDisplay').classList.add('hidden');
-                return;
-            }
-            
-            document.getElementById('bestScoreDisplay').classList.remove('hidden');
-            const key = `semantique_infini_bestscore_${currentLevel}`;
-            const bestScore = localStorage.getItem(key);
-            const displayElement = document.getElementById('bestScoreValue');
-
-            if (bestScore) {
-                displayElement.textContent = bestScore;
-                displayElement.style.color = (parseInt(bestScore) <= 5) ? '#4caf50' : '#ffeb3b';
-            } else {
-                displayElement.textContent = "--";
-                displayElement.style.color = '#ffeb3b';
-            }
-        }
-
-
-        // --- Fonctions de Jeu ---
+        // --- Fonctions de Jeu Sémantique ---
 
         function chargerProgression() {
+            if (currentGame !== 'semantique') return;
+            
+            document.getElementById('easterEggMessage').style.display = 'none';
+
             const exitButton = document.getElementById('exitChallengeButton');
             const normalActions = document.getElementById('normalGameActionButtons');
+            const gameContainer = document.getElementById('gameContainer');
+            const chartContainer = document.getElementById('chartContainer');
+            const socialPanel = document.getElementById('socialPanel');
 
             if (isChallengeMode) {
                 motSecret = MOT_DEFI;
@@ -623,11 +633,10 @@
                 return;
             }
             
-            document.getElementById('gameContainer').classList.remove('hidden');
-            document.getElementById('chartContainer').classList.remove('hidden');
-            document.getElementById('easterEggMessage').style.display = 'none';
+            gameContainer.classList.remove('hidden');
+            chartContainer.classList.remove('hidden');
+            socialPanel.classList.remove('hidden');
 
-            // Masquer/Afficher les éléments spécifiques au mode
             exitButton.classList.add('hidden');
             normalActions.classList.remove('hidden');
 
@@ -653,7 +662,7 @@
 
             motSecret = SEQUENCE_MOTS_SECRETS[currentLevel];
             
-            // CORRECTION CRUCIALE ICI : Affiche uniquement le numéro du niveau
+            // Correction du bug : Affiche uniquement le numéro du niveau
             document.getElementById('levelTitle').textContent = `Mot Secret du Jour N°${currentLevel + 1}`; 
             
             mettreAJourUIJeu(partieTerminee);
@@ -662,11 +671,10 @@
             document.getElementById('wordInput').focus();
         }
 
+        // --- Fonctions de sauvegarde / UI Sémantique ---
 
         function sauvegarderEssais() {
-            if (isChallengeMode) {
-                return; 
-            }
+            if (isChallengeMode) return; 
             localStorage.setItem(`semantique_infini_essais_${currentLevel}`, JSON.stringify(essais));
             localStorage.setItem('semantique_infini_level', currentLevel.toString());
         }
@@ -687,27 +695,22 @@
                 
                 document.getElementById('normalGameActionButtons').classList.add('hidden');
                 document.getElementById('exitChallengeButton').classList.remove('hidden');
-                
                 return;
             }
             
-            // Mode Normal
             if (!isChallengeMode) {
                  document.getElementById('normalGameActionButtons').classList.remove('hidden');
                  document.getElementById('exitChallengeButton').classList.add('hidden'); 
             }
 
             if (trouve) {
-                // Révélation du mot secret UNIQUEMENT si trouvé (partieTerminee = true)
                 document.getElementById('levelTitle').textContent = `Mot Secret du Jour N°${currentLevel + 1} : ${motSecret.toUpperCase()} 🎉`;
-
                 sauvegarderMeilleurScore(); 
                 nextButton.textContent = (currentLevel + 1 < SEQUENCE_MOTS_SECRETS.length) ? "Passer au Mot Suivant" : "Recommencer la Série";
                 nextButton.classList.remove('disabled-button');
                 nextButton.onclick = passerAuMotSuivant; 
                 nextButton.disabled = false;
             } else {
-                 // Assure que le titre reste simple si on revient ou si la partie n'est pas finie
                  if (!isChallengeMode) {
                      document.getElementById('levelTitle').textContent = `Mot Secret du Jour N°${currentLevel + 1}`;
                  }
@@ -718,7 +721,88 @@
             }
         }
         
-        // --- Fonctions d'aide (calcul, température, distance inchangées) ---
+        function proposerMot() {
+            if (currentGame !== 'semantique') return;
+            // ... (Le reste de la logique de proposition de mot pour Sémantique, inchangée) ...
+            
+            if (!username) {
+                alert("Veuillez d'abord entrer un pseudo pour commencer !");
+                document.getElementById('wordInput').blur();
+                document.getElementById('usernameInput').focus();
+                return;
+            }
+            
+            const input = document.getElementById('wordInput');
+            const errorMessage = document.getElementById('errorMessage');
+            const motOriginal = input.value.trim().toLowerCase();
+            input.value = '';
+            errorMessage.textContent = '';
+
+            if (!motOriginal) return;
+            if (partieTerminee) return;
+
+            if (motOriginal === "caca") {
+                document.getElementById('semantiqueGameArea').classList.add('hidden');
+                document.getElementById('profileArea').classList.add('hidden');
+                document.getElementById('easterEggMessage').style.display = 'block';
+                mettreAJourUIJeu(true);
+                return;
+            }
+
+            if (essais.some(e => e.original === motOriginal || e.mot === motOriginal)) {
+                errorMessage.textContent = `Le mot '${motOriginal}' a déjà été proposé.`;
+                return;
+            }
+            if (motOriginal.length < 3) {
+                 errorMessage.textContent = "Le mot doit faire au moins 3 lettres.";
+                return;
+            }
+
+            const motCorrigé = corrigerMot(motOriginal);
+            const estCorrigé = motCorrigé !== motOriginal;
+            
+            if (estCorrigé) {
+                errorMessage.textContent = `Mot corrigé automatiquement : '${motOriginal}' → '${motCorrigé}'.`;
+            }
+
+            totalEssais++;
+            const score = calculerScore(motCorrigé);
+            const victoire = score === 1000;
+
+            essais.push({
+                mot: motCorrigé,
+                score: score,
+                original: motOriginal,
+                corrige: estCorrigé,
+                joueur: username 
+            });
+
+            sauvegarderEssais();
+            afficherResultats();
+
+            if (victoire) {
+                partieTerminee = true;
+                mettreAJourUIJeu(true);
+                return;
+            }
+            
+            document.getElementById('wordInput').focus();
+        }
+        
+        function nouvellePartie() {
+            document.getElementById('semantiqueGameArea').classList.remove('hidden');
+            document.getElementById('profileArea').classList.remove('hidden');
+            document.getElementById('easterEggMessage').style.display = 'none';
+            isChallengeMode = false; 
+            chargerProgression(); 
+        }
+
+        // Le reste des fonctions Sémantique (levenshteinDistance, calculerScore, determinerTemp, afficherResultats, etc.)
+        // Doit être placé ici, juste avant 'window.onload = loadProfile;'
+        // Pour des raisons de concision, j'omets le code inchangé ici,
+        // mais assurez-vous de copier TOUT le code JS de la version précédente dans ce bloc.
+        
+        // --- Fonctions d'aide (calcul, température, distance Sémantique) ---
 
         function levenshteinDistance(s1, s2) {
             s1 = s1.toLowerCase(); s2 = s2.toLowerCase();
@@ -804,7 +888,6 @@
             const tbody = document.getElementById('scoreTableBody');
             const tempFragment = document.createDocumentFragment();
             
-            // 1. Clonage et tri des essais : du plus grand score au plus petit
             const essaisTries = [...essais].sort((a, b) => b.score - a.score);
             
             tbody.innerHTML = ''; 
@@ -845,12 +928,9 @@
                 resultsDiv.scrollTop = 0; 
             }
         }
-
-        // --- Fonctions de Graphique et d'action (inchangées) ---
         
         function mettreAJourGraphique() {
             const ctx = document.getElementById('scoreChart').getContext('2d');
-            
             const scores = essais.map(e => e.score);
             const tentatives = essais.map((e, index) => index + 1);
 
@@ -908,84 +988,44 @@
                 }
             });
         }
-
-        function proposerMot() {
-            if (!username) {
-                alert("Veuillez d'abord entrer un pseudo pour commencer !");
-                document.getElementById('wordInput').blur();
-                document.getElementById('usernameInput').focus();
-                return;
+        
+        function sauvegarderMeilleurScore() {
+            if (isChallengeMode || !partieTerminee) return;
+            const key = `semantique_infini_bestscore_${currentLevel}`;
+            const bestScoreActuel = parseInt(localStorage.getItem(key)) || Infinity;
+            if (totalEssais < bestScoreActuel) {
+                localStorage.setItem(key, totalEssais.toString());
+                afficherMeilleurScore();
+                if (bestScoreActuel !== Infinity) {
+                    alert(`Nouveau Record pour le mot "${motSecret.toUpperCase()}" ! ${totalEssais} tentatives.`);
+                }
             }
-            
-            const input = document.getElementById('wordInput');
-            const errorMessage = document.getElementById('errorMessage');
-            const motOriginal = input.value.trim().toLowerCase();
-            input.value = '';
-            errorMessage.textContent = '';
-
-            if (!motOriginal) return;
-            if (partieTerminee) return;
-
-            if (motOriginal === "caca") {
-                document.getElementById('mainGameArea').classList.add('hidden');
-                document.getElementById('profileArea').classList.add('hidden');
-                document.getElementById('easterEggMessage').style.display = 'block';
-                mettreAJourUIJeu(true);
-                return;
-            }
-
-            if (essais.some(e => e.original === motOriginal || e.mot === motOriginal)) {
-                errorMessage.textContent = `Le mot '${motOriginal}' a déjà été proposé.`;
-                return;
-            }
-            if (motOriginal.length < 3) {
-                 errorMessage.textContent = "Le mot doit faire au moins 3 lettres.";
-                return;
-            }
-
-            const motCorrigé = corrigerMot(motOriginal);
-            const estCorrigé = motCorrigé !== motOriginal;
-            
-            if (estCorrigé) {
-                errorMessage.textContent = `Mot corrigé automatiquement : '${motOriginal}' → '${motCorrigé}'.`;
-            }
-
-            totalEssais++;
-            const score = calculerScore(motCorrigé);
-            const victoire = score === 1000;
-
-            essais.push({
-                mot: motCorrigé,
-                score: score,
-                original: motOriginal,
-                corrige: estCorrigé,
-                joueur: username 
-            });
-
-            sauvegarderEssais();
-            afficherResultats();
-
-            if (victoire) {
-                partieTerminee = true;
-                mettreAJourUIJeu(true);
-                return;
-            }
-            
-            document.getElementById('wordInput').focus();
         }
 
-        function nouvellePartie() {
-            document.getElementById('mainGameArea').classList.remove('hidden');
-            document.getElementById('profileArea').classList.remove('hidden');
-            isChallengeMode = false; 
-            chargerProgression(); 
-        }
+        function afficherMeilleurScore() {
+            if (isChallengeMode || currentGame !== 'semantique') {
+                document.getElementById('bestScoreDisplay').classList.add('hidden');
+                return;
+            }
+            document.getElementById('bestScoreDisplay').classList.remove('hidden');
+            const key = `semantique_infini_bestscore_${currentLevel}`;
+            const bestScore = localStorage.getItem(key);
+            const displayElement = document.getElementById('bestScoreValue');
 
+            if (bestScore) {
+                displayElement.textContent = bestScore;
+                displayElement.style.color = (parseInt(bestScore) <= 5) ? '#4caf50' : '#ffeb3b';
+            } else {
+                displayElement.textContent = "--";
+                displayElement.style.color = '#ffeb3b';
+            }
+        }
+        
         function resetProgress() {
             if (confirm("Êtes-vous sûr de vouloir réinitialiser TOUTE votre progression dans le mode Niveaux (y compris les meilleurs scores) ?")) {
                 for(let i = 0; i < SEQUENCE_MOTS_SECRETS.length; i++) {
                      localStorage.removeItem(`semantique_infini_essais_${i}`);
-                     localStorage.removeItem(`semantique_infini_bestscore_${i}`); // Supprime le meilleur score
+                     localStorage.removeItem(`semantique_infini_bestscore_${i}`); 
                 }
                 localStorage.removeItem('semantique_infini_level');
                 currentLevel = 0;
@@ -996,16 +1036,117 @@
         
         function passerAuMotSuivant() {
             if (!partieTerminee) return; 
-
             if (currentLevel + 1 >= SEQUENCE_MOTS_SECRETS.length) {
                 currentLevel = 0; 
                 alert("Série Complétée ! Vous recommencez au Mot Secret N°1.");
             } else {
                 currentLevel++;
             }
-            
             localStorage.setItem('semantique_infini_level', currentLevel.toString());
             chargerProgression(); 
+        }
+
+        function searchFriend() {
+            const searchInput = document.getElementById('friendSearchInput');
+            const resultsDiv = document.getElementById('searchResults');
+            const query = searchInput.value.trim();
+            resultsDiv.innerHTML = '';
+            
+            if (!query) {
+                resultsDiv.innerHTML = '<p class="social-info">Veuillez entrer un pseudo à rechercher.</p>';
+                return;
+            }
+
+            resultsDiv.innerHTML = '<p class="social-info" style="color:#00bcd4;"><i class="fa-solid fa-spinner fa-spin"></i> Recherche en cours...</p>';
+
+            setTimeout(() => {
+                const myUsername = localStorage.getItem('semantique_infini_username');
+                
+                if (query.toLowerCase() === myUsername.toLowerCase() || query.toLowerCase() === "joueur2") {
+                    const friendName = (query.toLowerCase() === myUsername.toLowerCase()) ? `${myUsername} (Vous)` : query;
+                    const statusColor = (query.toLowerCase() === myUsername.toLowerCase()) ? '#ff9800' : '#4caf50';
+                    
+                    resultsDiv.innerHTML = `
+                        <div class="friend-result">
+                            <span class="friend-name"><i class="fa-solid fa-user" style="color:${statusColor}; margin-right: 5px;"></i> ${friendName}</span>
+                            <span class="friend-status" style="color: ${statusColor};"><i class="fa-solid fa-circle-dot"></i> En ligne</span>
+                            <button onclick="proposerDefi('${friendName}')">Défier</button>
+                        </div>
+                    `;
+                } 
+                else if (query.length > 0) {
+                     resultsDiv.innerHTML = `
+                        <p class="social-info" style="color:#f44336;">Aucun joueur correspondant au pseudo "${query}" trouvé.</p>
+                        <p class="social-info" style="margin-top: 15px;">**NOTE :** Cette fonctionnalité nécessite un serveur web réel pour lier les joueurs.</p>
+                    `;
+                }
+
+                searchInput.value = ''; 
+
+            }, 1000); 
+        }
+
+        function proposerDefi(ami) {
+            const resultsDiv = document.getElementById('searchResults');
+            resultsDiv.innerHTML = `
+                <div class="challenge-message">
+                    Défi envoyé à **${ami}** ! ⚔️
+                    <p style="font-weight: 400; font-size: 13px; margin-top: 8px;">
+                        Mot secret choisi pour ce défi : **${MOT_DEFI.toUpperCase()}**.
+                        Vous allez jouer maintenant. ${ami} devra battre votre score !
+                    </p>
+                    <button onclick="lancerDefi()">Commencer le Défi</button>
+                </div>
+            `;
+            if (ami.includes('(Vous)')) {
+                 resultsDiv.querySelector('button').textContent = "Lancer le Défi (Local)";
+            }
+        }
+
+        function lancerDefi() {
+            motSecret = MOT_DEFI;
+            isChallengeMode = true;
+            essais = []; 
+            totalEssais = 0;
+            partieTerminee = false;
+
+            document.getElementById('levelTitle').textContent = `⚔️ Défi en Ligne : Mot ${MOT_DEFI.toUpperCase()} ⚔️`;
+            
+            mettreAJourUIJeu(false);
+            afficherResultats();
+            
+            document.getElementById('socialPanel').classList.add('hidden');
+            document.getElementById('exitChallengeButton').classList.remove('hidden'); 
+            document.getElementById('normalGameActionButtons').classList.add('hidden'); 
+            document.getElementById('bestScoreDisplay').classList.add('hidden'); 
+            document.getElementById('wordInput').focus();
+        }
+
+        function terminerDefi() {
+            const scoreDefi = totalEssais;
+            alert(`Défi terminé en ${scoreDefi} tentatives ! Votre score a été envoyé. Le mot secret était : ${motSecret}.`);
+            
+            isChallengeMode = false;
+            chargerProgression();
+            
+            document.getElementById('socialPanel').classList.remove('hidden');
+            document.getElementById('searchResults').innerHTML = '<p class="social-info">Défi terminé. Cherchez un nouvel ami ou reprenez les niveaux.</p>';
+            
+            document.getElementById('exitChallengeButton').classList.add('hidden'); 
+            document.getElementById('normalGameActionButtons').classList.remove('hidden'); 
+            document.getElementById('bestScoreDisplay').classList.remove('hidden');
+        }
+        
+        function quitterDefi() {
+            if (confirm("Êtes-vous sûr de vouloir abandonner le défi en cours ? Vos tentatives ne seront pas sauvegardées comme score de défi.")) {
+                isChallengeMode = false;
+                chargerProgression();
+                
+                document.getElementById('socialPanel').classList.remove('hidden');
+                document.getElementById('exitChallengeButton').classList.add('hidden'); 
+                document.getElementById('normalGameActionButtons').classList.remove('hidden'); 
+                document.getElementById('bestScoreDisplay').classList.remove('hidden');
+            }
         }
 
 
