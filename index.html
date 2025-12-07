@@ -15,15 +15,19 @@
         /* ==================================== */
         /* 1. STYLES DE BASE (DARK MODE) */
         /* ==================================== */
+        html, body {
+            height: 100%;
+        }
         body {
             font-family: 'Inter', sans-serif;
             background-color: #121212; 
             color: #f0f0f0; 
             margin: 0;
-            padding: 40px 0;
+            padding: 0; 
             display: flex;
             flex-direction: column;
-            align-items: center;
+            justify-content: center; 
+            align-items: center; 
             min-height: 100vh;
             text-align: center;
         }
@@ -35,72 +39,100 @@
             border-radius: 16px; 
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6); 
             border: 1px solid #333333; 
-            margin-bottom: 30px;
+            margin: 15px auto; 
             transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
         }
         .hidden { display: none !important; }
 
-        /* ==================================== */
-        /* 2. ÉCRAN D'ACCUEIL */
-        /* ==================================== */
-        #welcomeScreen h2 {
-            font-size: 32px;
-            color: #00bcd4;
-            font-weight: 900;
-            margin-bottom: 30px;
+        /* Styles généraux */
+        h1 { font-size: 38px; font-weight: 900; color: #ffffff; margin-bottom: 5px; }
+        .level-title { font-size: 26px; font-weight: 700; color: #aaaaaa; margin-bottom: 20px; }
+        .subtitle { color: #888888; }
+        
+        /* Boutons et Inputs */
+        .action-buttons { 
+            display: flex; 
+            justify-content: center; 
+            gap: 15px; 
+            margin-top: 30px; 
+            flex-wrap: wrap; 
         }
-        .game-selection {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 30px;
+        .new-game-button, .change-profile-btn {
+            background-color: #00bcd4; color: #1a1a1a; border-radius: 10px;
+            padding: 12px 25px; border: none; font-weight: 700;
+            cursor: pointer; transition: background-color 0.2s, transform 0.1s;
         }
-        .game-card {
-            background-color: #2a2a2a;
-            padding: 25px;
-            border-radius: 12px;
-            cursor: pointer;
-            width: 45%;
-            transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
-            border: 2px solid #333;
+        .new-game-button:hover, .change-profile-btn:hover {
+            background-color: #0097a7;
         }
-        .game-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-            border-color: #00bcd4;
-        }
-        .game-card h3 {
-            color: #fff;
-            margin-top: 10px;
-            font-size: 20px;
-            font-weight: 800;
-        }
-        .game-card .icon {
-            font-size: 40px;
-            color: #ff9800;
+        .reset-button { background-color: #f44336 !important; color: white !important; }
+
+        .input-area { display: flex; gap: 12px; margin-bottom: 35px; }
+        .input-area input { 
+            flex-grow: 1; padding: 18px 20px; border: 1px solid #444; 
+            border-radius: 10px; font-size: 18px; color: #f0f0f0;
+            background-color: #333333; transition: border-color 0.3s, box-shadow 0.3s; 
         }
 
         /* ==================================== */
-        /* 3. EN-TÊTE & PROFIL (Mise à jour pour l'accueil) */
+        /* 2. STYLES DE SNAKE */
         /* ==================================== */
-        #profileArea {
+        #snakeGameArea .container {
+            max-width: 580px; 
+            padding: 20px; 
+            background: #1a1a1a;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 188, 212, 0.2);
+        }
+        #snakeGameArea h1 {
+            color: #4caf50;
+            margin-bottom: 10px;
+        }
+        #gameBoard {
+            border: 3px solid #00bcd4; 
+            background-color: #1a1a1a;
+            box-shadow: 0 0 15px rgba(0, 188, 212, 0.6);
+            margin-bottom: 20px;
+            display: block; 
+        }
+        .snake-score {
+            font-size: 30px; 
+            font-weight: 900;
+            color: #ffeb3b;
+            margin-bottom: 15px;
+        }
+        .snake-instructions {
+            margin-top: 15px;
+            color: #aaaaaa;
+            font-weight: 500;
+        }
+        .pause-message {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            max-width: 650px;
-            margin-bottom: 25px;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            padding: 18px 25px;
-            background-color: #2a2a2a;
-            border-radius: 16px;
-            border: 1px solid #3a3a3a;
+            font-size: 28px;
+            font-weight: bold;
+            border-radius: 5px;
+            z-index: 10;
         }
-        #profileName {
-            font-size: 22px;
-            font-weight: 800;
-            color: #00bcd4;
-            text-shadow: 0 0 5px rgba(0, 188, 212, 0.3);
+        
+        /* Styles de tableau Sémantique */
+        .results {
+            max-height: 250px;
+            overflow-y: auto; 
+            border: 1px solid #444;
+            border-radius: 8px;
+            margin-top: 20px;
         }
+        
+        /* Styles de profil, etc. (inchangés) */
         .home-button {
              background-color: #4caf50; 
              color: white; 
@@ -112,85 +144,17 @@
              margin-right: 10px;
              transition: background-color 0.2s;
         }
-        .home-button:hover {
-            background-color: #388e3c;
-        }
-
-        /* Styles de Sémantique Infini (inchangés ou adaptés) */
-        h1 { font-size: 38px; font-weight: 900; color: #ffffff; margin-bottom: 5px; }
-        .level-title { font-size: 26px; font-weight: 700; color: #aaaaaa; margin-bottom: 20px; }
-        .subtitle { color: #888888; }
-        .attempt-counter { font-size: 18px; font-weight: 600; margin-bottom: 15px; color: #f0f0f0; }
-
-        #bestScoreDisplay {
-            margin-bottom: 15px;
-            padding: 8px 15px;
-            border-radius: 8px;
-            background-color: #333333;
-            color: #ffeb3b; 
-            font-weight: 600;
-            border: 1px solid #ffeb3b;
+        #profileArea {
+            width: 100%;
+            max-width: 650px;
+            margin-bottom: 25px;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            gap: 10px;
-        }
-        
-        .input-area { display: flex; gap: 12px; margin-bottom: 35px; }
-        .input-area input { 
-            flex-grow: 1; padding: 18px 20px; border: 1px solid #444; 
-            border-radius: 10px; font-size: 18px; color: #f0f0f0;
-            background-color: #333333; transition: border-color 0.3s, box-shadow 0.3s; 
-        }
-        .input-area button { 
-            background-color: #00bcd4; color: #1a1a1a; padding: 15px 25px; 
-            border: none; border-radius: 10px; font-size: 18px; font-weight: 700; 
-            cursor: pointer; transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s; 
-        }
-        .action-buttons { 
-            display: flex; 
-            justify-content: center; 
-            gap: 15px; 
-            margin-top: 30px; 
-            flex-wrap: wrap; 
-        }
-        .new-game-button {
-            background-color: #4caf50; color: #1a1a1a; border-radius: 10px;
-            padding: 12px 25px; border: none; font-weight: 700;
-            cursor: pointer; transition: background-color 0.2s, transform 0.1s;
-        }
-        .reset-button { background-color: #f44336 !important; color: white !important; }
-        
-        /* ==================================== */
-        /* 4. STYLES DE SNAKE */
-        /* ==================================== */
-        #snakeGame {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        #gameBoard {
-            border: 5px solid #00bcd4;
-            background-color: #1a1a1a;
-            box-shadow: 0 0 20px rgba(0, 188, 212, 0.5);
-            margin-bottom: 20px;
-        }
-        .snake-cell {
-            background-color: #4caf50; /* Vert pour le serpent */
-            border-radius: 2px;
-        }
-        .food-cell {
-            background-color: #f44336; /* Rouge pour la nourriture */
-            border-radius: 50%;
-        }
-        .snake-score {
-            font-size: 24px;
-            font-weight: 800;
-            color: #ffeb3b;
-        }
-        .snake-instructions {
-            margin-top: 15px;
-            color: #888;
+            padding: 18px 25px;
+            background-color: #2a2a2a;
+            border-radius: 16px;
+            border: 1px solid #3a3a3a;
         }
     </style>
 </head>
@@ -207,16 +171,16 @@
     <div class="container" id="welcomeScreen">
         <h2>Yvonsoft Arcade</h2>
         <p class="subtitle">Bienvenue ! Choisissez un jeu pour commencer.</p>
-        <div class="game-selection">
+        <div class="game-selection" style="display: flex; justify-content: center; gap: 20px; margin-top: 30px;">
             
-            <div class="game-card" onclick="startSemantique()">
-                <i class="icon fa-solid fa-brain"></i>
+            <div class="game-card" onclick="startSemantique()" style="background-color: #2a2a2a; padding: 25px; border-radius: 12px; cursor: pointer; width: 45%; transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s; border: 2px solid #333;">
+                <i class="icon fa-solid fa-brain" style="color:#ff9800; font-size: 40px;"></i>
                 <h3>Sémantique Infini</h3>
                 <p class="subtitle">Le jeu de proximité sémantique.</p>
             </div>
             
-            <div class="game-card" onclick="startSnake()">
-                <i class="icon fa-solid fa-snake"></i>
+            <div class="game-card" onclick="startSnake()" style="background-color: #2a2a2a; padding: 25px; border-radius: 12px; cursor: pointer; width: 45%; transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s; border: 2px solid #333;">
+                <i class="icon fa-solid fa-snake" style="color:#4caf50; font-size: 40px;"></i>
                 <h3>Snake</h3>
                 <p class="subtitle">Le classique jeu du serpent.</p>
             </div>
@@ -227,21 +191,21 @@
         <h2>Démarrez votre session</h2>
         <p class="subtitle" style="margin-bottom: 30px;">Veuillez entrer votre pseudo pour accéder aux jeux.</p>
         <input type="text" id="usernameInput" placeholder="Votre Pseudo (max 12 caractères)" maxlength="12" onkeydown="if(event.key === 'Enter') saveProfile()">
-        <button onclick="saveProfile()">Accéder à l'Arcade</button>
+        <button class="new-game-button" onclick="saveProfile()">Accéder à l'Arcade</button>
     </div>
 
     <div id="gameArea" class="hidden">
         
-        <div class="main-game-area" id="semantiqueGameArea">
+        <div class="main-game-area hidden" id="semantiqueGameArea">
             <div class="container" id="gameContainer">
                 <h1>Sémantique Infini</h1>
                 <div class="level-title" id="levelTitle">Mot Secret du Jour N°1</div>
                 <p class="subtitle">Trouvez le mot secret en vous basant sur la proximité sémantique.</p>
-                <div id="bestScoreDisplay">
+                <div id="bestScoreDisplay" style="display:flex; justify-content:center;">
                      <i class="fa-solid fa-trophy" style="color:#ffeb3b;"></i> 
                      Meilleur Score (local) : <span id="bestScoreValue">--</span> tentatives
                 </div>
-                <div class="attempt-counter">
+                <div class="attempt-counter" style="font-size: 18px; font-weight: 600; margin-bottom: 15px; color: #f0f0f0;">
                     Tentatives : <span id="attemptCount">0</span>
                 </div>
                 <div class="action-buttons" id="challengeExitArea">
@@ -251,19 +215,19 @@
                 </div>
                 <div class="input-area">
                     <input type="text" id="wordInput" placeholder="Saisir un mot ici..." autofocus onkeydown="if(event.key === 'Enter') proposerMot()">
-                    <button onclick="proposerMot()" id="proposeButton">Proposer</button>
+                    <button class="new-game-button" onclick="proposerMot()" id="proposeButton">Proposer</button>
                 </div>
-                <div class="error-message" id="errorMessage"></div>
+                <div class="error-message" id="errorMessage" style="color:#f44336; margin-bottom: 15px; font-weight: 500;"></div>
                 <div class="results">
-                    <table>
+                    <table style="width: 100%; border-collapse: collapse;">
                         <thead>
-                            <tr>
-                                <th style="width: 45%; padding-left: 10px;">Mot Proposé</th>
-                                <th style="width: 25%;">Score (0-1000)</th>
-                                <th style="width: 30%;">Température</th>
+                            <tr style="background-color: #2a2a2a;">
+                                <th style="width: 45%; padding: 10px; padding-left: 15px; text-align: left; border-bottom: 2px solid #3a3a3a;">Mot Proposé</th>
+                                <th style="width: 25%; padding: 10px; border-bottom: 2px solid #3a3a3a;">Score (0-1000)</th>
+                                <th style="width: 30%; padding: 10px; border-bottom: 2px solid #3a3a3a;">Température</th>
                             </tr>
                         </thead>
-                        <tbody id="scoreTableBody">
+                        <tbody id="scoreTableBody" style="font-size: 14px;">
                         </tbody>
                     </table>
                 </div>
@@ -273,18 +237,18 @@
                 </div>
             </div>
             
-            <div class="chart-container social-panel" id="chartContainer" style="background: #1e1e1e; border-radius: 16px;">
-                <h2>Progression du Score</h2>
+            <div class="chart-container social-panel" id="chartContainer" style="background: #1e1e1e; border-radius: 16px; margin-top: 25px;">
+                <h2 style="font-size: 24px; font-weight: 800; margin-bottom: 15px;">Progression du Score</h2>
                 <canvas id="scoreChart"></canvas>
             </div>
-            <div id="socialPanel" class="social-panel">
-                <h2><i class="fa-solid fa-users" style="color:#ff9800;"></i> Jouer en Ligne / Amis (Simulé)</h2>
-                <div class="search-input-area">
-                    <input type="text" id="friendSearchInput" placeholder="Rechercher un pseudo (Ex: Joueur2)" onkeydown="if(event.key === 'Enter') searchFriend()">
-                    <button onclick="searchFriend()"><i class="fa-solid fa-magnifying-glass"></i> Rechercher</button>
+            <div id="socialPanel" class="social-panel" style="background: #1e1e1e; border-radius: 16px; margin-top: 25px;">
+                <h2 style="font-size: 24px; font-weight: 800; margin-bottom: 15px;"><i class="fa-solid fa-users" style="color:#ff9800;"></i> Jouer en Ligne / Amis (Simulé)</h2>
+                <div class="search-input-area" style="display: flex; gap: 10px; margin-bottom: 15px;">
+                    <input type="text" id="friendSearchInput" placeholder="Rechercher un pseudo (Ex: Joueur2)" style="padding: 10px;">
+                    <button class="new-game-button" onclick="searchFriend()" style="padding: 10px 15px;"><i class="fa-solid fa-magnifying-glass"></i> Rechercher</button>
                 </div>
-                <div id="searchResults">
-                    <p class="social-info">Cherchez votre propre pseudo ou "Joueur2" pour voir le bouton "Défier".</p>
+                <div id="searchResults" style="text-align: left; padding: 0 10px;">
+                    <p class="social-info" style="color:#888;">Cherchez votre propre pseudo ou "Joueur2" pour voir le bouton "Défier".</p>
                 </div>
             </div>
         </div>
@@ -293,16 +257,22 @@
             <div class="container">
                 <h1>Snake 🐍</h1>
                 <p class="snake-score">Score: <span id="snakeScore">0</span></p>
-                <canvas id="gameBoard"></canvas>
-                <div class="action-buttons">
-                    <button class="new-game-button" onclick="startGame()">Nouvelle Partie</button>
-                    <button class="new-game-button reset-button" onclick="endGame()">Arrêter le Jeu</button>
+                <div style="position: relative; width: 500px; height: 500px;">
+                    <canvas id="gameBoard"></canvas>
+                    <div id="snakePauseMessage" class="pause-message">
+                        <p style="margin: 5px;">Utilisez les flèches pour commencer à jouer !</p>
+                        <p style="font-size: 18px; font-weight: 400; color: #ffeb3b;">(Ou cliquez sur Nouvelle Partie)</p>
+                    </div>
                 </div>
-                <p class="snake-instructions">Utilisez les **flèches** pour vous déplacer.</p>
+                <div class="action-buttons">
+                    <button class="new-game-button" onclick="startGame()"><i class="fa-solid fa-play"></i> Nouvelle Partie</button>
+                    <button class="new-game-button reset-button" onclick="endGame()"><i class="fa-solid fa-stop"></i> Arrêter le Jeu</button>
+                </div>
+                <p class="snake-instructions">La partie démarre à la première pression sur une **flèche**.</p>
             </div>
         </div>
         
-        <div class="easter-egg-message" id="easterEggMessage">
+        <div class="easter-egg-message" id="easterEggMessage" style="display:none; color: white; background: #f44336; padding: 40px; border-radius: 15px;">
             T'es bête ou quoi ? 💩
             <div style="margin-top: 20px;">
                  <button class="new-game-button" onclick="nouvellePartie()">Nouvelle Partie</button>
@@ -313,10 +283,10 @@
 
     <script>
         // ====================================================================
-        // GESTION DU PROFIL & DE L'INTERFACE GLOBALE
+        // GESTION DU PROFIL & DE L'INTERFACE GLOBALE (Inchangement)
         // ====================================================================
         let username = "";
-        let currentGame = null; // 'semantique' ou 'snake'
+        let currentGame = null; 
 
         function loadProfile() {
             username = localStorage.getItem('semantique_infini_username');
@@ -326,10 +296,9 @@
                 document.getElementById('loginScreen').classList.add('hidden');
                 document.getElementById('profileArea').classList.remove('hidden');
                 document.getElementById('gameArea').classList.remove('hidden');
-                // Si l'utilisateur a déjà un pseudo, on affiche l'écran de bienvenue
+                
                 goToWelcomeScreen();
             } else {
-                // S'il n'y a pas de pseudo, on va directement à l'écran de pseudo
                 goToLoginScreen();
             }
         }
@@ -337,17 +306,19 @@
         function goToWelcomeScreen() {
              document.getElementById('welcomeScreen').classList.remove('hidden');
              document.getElementById('loginScreen').classList.add('hidden');
-             document.getElementById('profileArea').classList.add('hidden');
+             document.getElementById('profileArea').classList.remove('hidden');
              document.getElementById('gameArea').classList.add('hidden');
              
-             // Assurez-vous que les zones de jeu sont masquées
              document.getElementById('semantiqueGameArea').classList.add('hidden');
              document.getElementById('snakeGameArea').classList.add('hidden');
-             document.getElementById('profileArea').classList.remove('hidden'); // On affiche quand même le profil pour les options
              
-             // Si Snake est actif, arrêtez-le
+             if (gameLoop) endGame(); 
+             document.removeEventListener('keydown', handleKeyPress); 
+
              if (currentGame === 'snake') {
-                 endGame(); 
+                 if (animationFrameId) cancelAnimationFrame(animationFrameId);
+                 animationFrameId = null;
+                 gameLoop = null; 
              }
              currentGame = null;
         }
@@ -400,7 +371,17 @@
             document.getElementById('snakeGameArea').classList.add('hidden');
             document.getElementById('gameArea').classList.remove('hidden');
             
-            // Logique spécifique à Sémantique (rechargement de la partie)
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+                animationFrameId = null;
+            }
+            if (gameLoop) {
+                clearInterval(gameLoop);
+                gameLoop = null;
+            }
+
+            document.removeEventListener('keydown', handleKeyPress); 
+
             chargerProgression(); 
         }
 
@@ -415,23 +396,32 @@
             document.getElementById('snakeGameArea').classList.remove('hidden');
             document.getElementById('gameArea').classList.remove('hidden');
             
-            // Logique spécifique à Snake (lancement ou préparation)
             initializeSnake(); 
+            resetSnakeGame(); 
         }
 
         // ====================================================================
-        // LOGIQUE DU JEU SNAKE (NOUVEAU)
+        // LOGIQUE DU JEU SNAKE (MODIFICATIONS IMPORTANTES)
         // ====================================================================
         
         const GRID_SIZE = 20;
-        const TILE_SIZE = 25; // Taille de chaque cellule en pixels
+        const TILE_SIZE = 25; 
+        const INITIAL_SPEED = 150; 
+        const INITIAL_FOOD_COUNT = 20;
+        // La taille de départ est de 3 segments (tête incluse)
+        const INITIAL_LENGTH = 3; 
+
         let snake = [];
-        let food = {};
-        let dx = 0; // direction x
-        let dy = 0; // direction y
-        let gameLoop = null;
-        let speed = 150; // Millisecondes
+        let foodList = [];
+        let dx = TILE_SIZE; 
+        let dy = 0; 
+        let directionQueue = []; // NOUVEAU: Pour la réactivité des touches
+        let gameLoop = null; 
+        let animationFrameId = null; 
+        let speed = INITIAL_SPEED; 
         let score = 0;
+        let isPaused = true; 
+        let step = 0; // Progression d'interpolation [0 à speed]
         let canvas, ctx;
         
         function initializeSnake() {
@@ -440,46 +430,80 @@
              canvas.height = GRID_SIZE * TILE_SIZE;
              ctx = canvas.getContext('2d');
              
-             // Écouteur d'événements pour les flèches directionnelles
-             document.removeEventListener('keydown', handleKeyPress); // Nettoyage de l'ancien listener
+             document.removeEventListener('keydown', handleKeyPress); 
              document.addEventListener('keydown', handleKeyPress);
-             
-             resetSnakeGame();
         }
 
         function resetSnakeGame() {
-            // Arrête l'ancienne boucle de jeu si elle existe
             if (gameLoop) clearInterval(gameLoop);
+            if (animationFrameId) cancelAnimationFrame(animationFrameId);
+            gameLoop = null;
+            animationFrameId = null;
             
+            isPaused = true; 
+            speed = INITIAL_SPEED;
             score = 0;
             document.getElementById('snakeScore').textContent = score;
 
-            // Position initiale du serpent
-            snake = [{ x: 10, y: 10 }];
-            dx = TILE_SIZE;
-            dy = 0;
+            // Position initiale du serpent avec 3 segments
+            const startX = 10 * TILE_SIZE;
+            const startY = 10 * TILE_SIZE;
+            snake = [];
+            for(let i = 0; i < INITIAL_LENGTH; i++) {
+                snake.push({ 
+                    x: startX - i * TILE_SIZE, 
+                    y: startY, 
+                    prevX: startX - (i + 1) * TILE_SIZE, 
+                    prevY: startY 
+                });
+            }
             
-            generateFood();
-            drawGame();
+            dx = TILE_SIZE; 
+            dy = 0;
+            directionQueue = [];
+            step = 0; 
+            
+            foodList = [];
+            for (let i = 0; i < INITIAL_FOOD_COUNT; i++) {
+                generateFood(); 
+            }
+            
+            drawGame(); 
+            
+            document.getElementById('snakePauseMessage').style.display = 'flex';
         }
         
         function startGame() {
-             resetSnakeGame(); 
-             // Lance la nouvelle boucle de jeu
-             gameLoop = setInterval(tick, speed);
+             if (!isPaused) return;
+             
+             isPaused = false;
+             document.getElementById('snakePauseMessage').style.display = 'none';
+             
+             // Réinitialiser le timer si l'on démarre après une pause/fin
+             if (!gameLoop) {
+                 gameLoop = setInterval(tick, speed); 
+             }
+             
+             animationLoop(performance.now()); 
         }
         
         function endGame() {
             if (gameLoop) {
                 clearInterval(gameLoop);
-                gameLoop = null;
-                alert(`Partie terminée ! Votre score : ${score}`);
-                // Optionnel : enregistrer le score en ligne ici si Firebase est implémenté
             }
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+            }
+            gameLoop = null;
+            animationFrameId = null;
+            isPaused = true;
+            
+            resetSnakeGame(); 
         }
         
+        // GESTION DES TOUCHES (avec file d'attente)
         function handleKeyPress(event) {
-            if (currentGame !== 'snake' || gameLoop === null) return; // Ignore si pas dans le jeu Snake ou pas de partie lancée
+            if (currentGame !== 'snake') return; 
 
             const KEY_LEFT = 37;
             const KEY_UP = 38;
@@ -488,98 +512,244 @@
             
             const keyPressed = event.keyCode;
             
-            // Empêche le retournement immédiat
-            const goingUp = dy === -TILE_SIZE;
-            const goingDown = dy === TILE_SIZE;
-            const goingRight = dx === TILE_SIZE;
-            const goingLeft = dx === -TILE_SIZE;
+            if (keyPressed >= KEY_LEFT && keyPressed <= KEY_DOWN) {
+                 event.preventDefault(); 
+            }
+            
+            if (isPaused && keyPressed >= KEY_LEFT && keyPressed <= KEY_DOWN) {
+                 // Si c'est le premier mouvement, on l'applique directement et on démarre
+                 const newDirection = getDirectionFromKey(keyPressed);
+                 if (newDirection) {
+                     directionQueue.push(newDirection);
+                 }
+                 startGame();
+                 return; 
+            }
+            
+            if (isPaused) return;
 
-            if (keyPressed === KEY_LEFT && !goingRight) { dx = -TILE_SIZE; dy = 0; }
-            if (keyPressed === KEY_UP && !goingDown) { dx = 0; dy = -TILE_SIZE; }
-            if (keyPressed === KEY_RIGHT && !goingLeft) { dx = TILE_SIZE; dy = 0; }
-            if (keyPressed === KEY_DOWN && !goingUp) { dx = 0; dy = TILE_SIZE; }
+            const newDirection = getDirectionFromKey(keyPressed);
+
+            if (newDirection) {
+                // Si la file est vide, on vérifie la direction actuelle (dx, dy)
+                const currentDx = dx;
+                const currentDy = dy;
+                
+                // Si la file n'est pas vide, on vérifie la dernière direction en file
+                const lastDirection = directionQueue.length > 0 ? directionQueue[directionQueue.length - 1] : { dx: currentDx, dy: currentDy };
+                
+                // Empêche le retournement immédiat (ex: aller à gauche si on va à droite)
+                if ((newDirection.dx === -lastDirection.dx && newDirection.dx !== 0) || 
+                    (newDirection.dy === -lastDirection.dy && newDirection.dy !== 0)) {
+                    // Direction invalide (retournement)
+                    return; 
+                }
+
+                // Ajoute la nouvelle direction à la file
+                if (directionQueue.length < 2) { 
+                    directionQueue.push(newDirection);
+                }
+            }
         }
+        
+        function getDirectionFromKey(keyPressed) {
+            const KEY_LEFT = 37;
+            const KEY_UP = 38;
+            const KEY_RIGHT = 39;
+            const KEY_DOWN = 40;
+            
+            if (keyPressed === KEY_LEFT) return { dx: -TILE_SIZE, dy: 0 };
+            if (keyPressed === KEY_UP) return { dx: 0, dy: -TILE_SIZE };
+            if (keyPressed === KEY_RIGHT) return { dx: TILE_SIZE, dy: 0 };
+            if (keyPressed === KEY_DOWN) return { dx: 0, dy: TILE_SIZE };
+            return null;
+        }
+
 
         function generateFood() {
             let newFood;
+            let occupied;
             do {
-                // Génère des coordonnées dans la grille (multiples de TILE_SIZE)
                 newFood = {
                     x: Math.floor(Math.random() * GRID_SIZE) * TILE_SIZE,
                     y: Math.floor(Math.random() * GRID_SIZE) * TILE_SIZE
                 };
-            } while (snake.some(segment => segment.x === newFood.x && segment.y === newFood.y));
+                
+                occupied = snake.some(segment => segment.x === newFood.x && segment.y === newFood.y) || 
+                           foodList.some(item => item.x === newFood.x && item.y === newFood.y);
+
+            } while (occupied);
             
-            food = newFood;
+            foodList.push(newFood);
         }
         
+        
         function drawGame() {
-            // Nettoyer le canvas
-            ctx.fillStyle = '#1a1a1a'; 
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            // Dessiner la nourriture
-            ctx.fillStyle = '#f44336';
-            ctx.beginPath();
-            ctx.arc(food.x + TILE_SIZE / 2, food.y + TILE_SIZE / 2, TILE_SIZE / 2, 0, 2 * Math.PI);
-            ctx.fill();
-            
-            // Dessiner le serpent
-            ctx.fillStyle = '#4caf50';
-            snake.forEach((segment, index) => {
-                if (index === 0) { // Tête du serpent
-                    ctx.fillStyle = '#00bcd4';
-                } else {
-                    ctx.fillStyle = '#4caf50';
+            // 1. Dessiner le fond (Grille Damier)
+            for (let i = 0; i < GRID_SIZE; i++) {
+                for (let j = 0; j < GRID_SIZE; j++) {
+                    ctx.fillStyle = (i + j) % 2 === 0 ? '#1f1f1f' : '#232323'; 
+                    ctx.fillRect(i * TILE_SIZE, j * TILE_SIZE, TILE_SIZE, TILE_SIZE);
                 }
-                ctx.fillRect(segment.x, segment.y, TILE_SIZE, TILE_SIZE);
-            });
-        }
-
-        function tick() {
-            // Nouvelle tête du serpent
-            const head = { x: snake[0].x + dx, y: snake[0].y + dy };
-
-            // Vérification des collisions
-            if (
-                // Collision avec les murs
-                head.x < 0 || head.x >= canvas.width ||
-                head.y < 0 || head.y >= canvas.height ||
-                // Collision avec lui-même
-                snake.slice(1).some(segment => segment.x === head.x && segment.y === head.y)
-            ) {
-                endGame();
-                return;
             }
 
-            // Ajouter la nouvelle tête
-            snake.unshift(head);
+            // 2. Dessiner la nourriture 
+            foodList.forEach(food => {
+                ctx.fillStyle = '#f44336'; 
+                ctx.shadowColor = '#f44336';
+                ctx.shadowBlur = 8;
+                ctx.beginPath();
+                ctx.arc(food.x + TILE_SIZE / 2, food.y + TILE_SIZE / 2, TILE_SIZE / 2 - 3, 0, 2 * Math.PI);
+                ctx.fill();
+            });
             
-            // Vérification de la nourriture
-            if (head.x === food.x && head.y === food.y) {
+            ctx.shadowBlur = 0;
+            
+            // 3. Dessiner le serpent (avec interpolation)
+            // Calculer le facteur d'interpolation (doit être entre 0 et 1)
+            let interPolationFactor = Math.min(1, step / speed);
+            
+            // Si en pause, l'interpolation est à 0 (position statique)
+            if (isPaused) {
+                interPolationFactor = 0;
+            }
+
+            snake.forEach((segment, index) => {
+                
+                // Utiliser la position interpolée entre la position précédente et la position actuelle (future)
+                let renderX = segment.prevX + (segment.x - segment.prevX) * interPolationFactor;
+                let renderY = segment.prevY + (segment.y - segment.prevY) * interPolationFactor;
+                
+                // Style
+                if (index === 0) {
+                    ctx.fillStyle = '#00bcd4'; 
+                    ctx.shadowColor = '#00bcd4';
+                    ctx.shadowBlur = 5;
+                } else {
+                    ctx.fillStyle = '#4caf50'; 
+                    ctx.shadowColor = 'transparent';
+                    ctx.shadowBlur = 0;
+                }
+                
+                // Dessin (margin = 0 pour un rendu solide)
+                const margin = 0; 
+                ctx.fillRect(renderX + margin, renderY + margin, TILE_SIZE - margin * 2, TILE_SIZE - margin * 2);
+            });
+            
+            ctx.shadowBlur = 0;
+        }
+
+        // Boucle d'animation fluide
+        let lastFrameTime = 0;
+        function animationLoop(timestamp) {
+            if (isPaused) return;
+
+            const elapsed = timestamp - lastFrameTime;
+
+            // Mettre à jour l'étape d'interpolation
+            step += elapsed;
+            
+            // Si le pas dépasse la durée d'un tick, on le plafonne pour éviter les saccades
+            if (step > speed) {
+                step = speed; 
+            }
+            
+            drawGame();
+            lastFrameTime = timestamp;
+            animationFrameId = requestAnimationFrame(animationLoop);
+        }
+
+
+        // Logique de jeu (mise à jour des positions par cases)
+        function tick() {
+            if (isPaused) return;
+
+            // 1. Appliquer la prochaine direction en file, si elle existe
+            if (directionQueue.length > 0) {
+                const newDirection = directionQueue.shift();
+                dx = newDirection.dx;
+                dy = newDirection.dy;
+            }
+            
+            // 2. Réinitialiser l'étape de l'animation
+            step = 0; 
+
+            // 3. Enregistrer l'ancienne position pour chaque segment
+            snake.forEach(segment => {
+                segment.prevX = segment.x;
+                segment.prevY = segment.y;
+            });
+
+            // 4. Calculer la nouvelle tête
+            // NOTE : head ne devient PAS un nouvel objet, on met à jour le premier segment
+            const head = snake[0]; 
+            const newHeadX = head.x + dx;
+            const newHeadY = head.y + dy;
+            
+            // 5. Vérification des collisions
+
+            // Collision avec les murs
+            if (
+                newHeadX < 0 || newHeadX >= canvas.width ||
+                newHeadY < 0 || newHeadY >= canvas.height
+            ) {
+                endGame(); 
+                return;
+            }
+            
+            // Collision avec le corps (vérification à partir du 3ème segment)
+            for (let i = 2; i < snake.length; i++) {
+                if (newHeadX === snake[i].x && newHeadY === snake[i].y) {
+                    endGame();
+                    return;
+                }
+            }
+
+            // 6. Mise à jour du serpent (Mouvement)
+            const tail = snake[snake.length - 1];
+            let foodEaten = false;
+            
+            // Vérification de la nourriture (collision avec n'importe quel morceau)
+            const foodIndex = foodList.findIndex(food => newHeadX === food.x && newHeadY === food.y);
+            
+            if (foodIndex !== -1) {
+                foodEaten = true;
                 score++;
                 document.getElementById('snakeScore').textContent = score;
+                
+                foodList.splice(foodIndex, 1);
                 generateFood();
-                // Augmenter la vitesse légèrement
+            } 
+            
+            // Déplacer les segments (de la queue vers l'avant)
+            for (let i = snake.length - 1; i > 0; i--) {
+                snake[i].x = snake[i-1].x;
+                snake[i].y = snake[i-1].y;
+            }
+            
+            // Ajouter la nouvelle position à la tête
+            head.x = newHeadX;
+            head.y = newHeadY;
+
+            // Si nourriture mangée, ajouter un nouveau segment (ancienne queue)
+            if (foodEaten) {
+                snake.push(tail); 
+            }
+
+            // 7. Accélération (Réduction de l'intervalle)
+            if (foodEaten) {
                 if (speed > 50) {
-                     speed -= 2; 
+                     speed -= 1; 
                      clearInterval(gameLoop);
                      gameLoop = setInterval(tick, speed);
                 }
-            } else {
-                // Retirer la queue si aucune nourriture n'est mangée
-                snake.pop();
             }
-
-            drawGame();
         }
         
         // ====================================================================
-        // LOGIQUE DU JEU SÉMANTIQUE (Mise à jour pour être compatible avec la nouvelle interface)
-        // (Copier l'intégralité du code Sémantique ici)
+        // LOGIQUE DU JEU SÉMANTIQUE (Inchangement)
         // ====================================================================
         
-        // --- DONNÉES DU JEU (Inchangées) ---
         const SEQUENCE_MOTS_SECRETS = [
             "chien", "ordinateur", "voyage", "musique", "montagne", 
             "livre", "amitié", "soleil", "chocolat", "futur", "maison", "pluie", "argent"
@@ -600,7 +770,6 @@
             "argent": { "richesse": 900, "banque": 850, "travail": 750, "payer": 800, "monnaie": 950, "economie": 820, "fortune": 780 }
         };
         
-        // --- VARIABLES GLOBALES SÉMANTIQUE ---
         let currentLevel = 0;
         let motSecret = "";
         let essais = [];
@@ -611,8 +780,6 @@
         let isChallengeMode = false;
 
         
-        // --- Fonctions de Jeu Sémantique ---
-
         function chargerProgression() {
             if (currentGame !== 'semantique') return;
             
@@ -662,7 +829,6 @@
 
             motSecret = SEQUENCE_MOTS_SECRETS[currentLevel];
             
-            // Correction du bug : Affiche uniquement le numéro du niveau
             document.getElementById('levelTitle').textContent = `Mot Secret du Jour N°${currentLevel + 1}`; 
             
             mettreAJourUIJeu(partieTerminee);
@@ -670,8 +836,6 @@
             afficherMeilleurScore(); 
             document.getElementById('wordInput').focus();
         }
-
-        // --- Fonctions de sauvegarde / UI Sémantique ---
 
         function sauvegarderEssais() {
             if (isChallengeMode) return; 
@@ -723,7 +887,6 @@
         
         function proposerMot() {
             if (currentGame !== 'semantique') return;
-            // ... (Le reste de la logique de proposition de mot pour Sémantique, inchangée) ...
             
             if (!username) {
                 alert("Veuillez d'abord entrer un pseudo pour commencer !");
@@ -796,13 +959,6 @@
             isChallengeMode = false; 
             chargerProgression(); 
         }
-
-        // Le reste des fonctions Sémantique (levenshteinDistance, calculerScore, determinerTemp, afficherResultats, etc.)
-        // Doit être placé ici, juste avant 'window.onload = loadProfile;'
-        // Pour des raisons de concision, j'omets le code inchangé ici,
-        // mais assurez-vous de copier TOUT le code JS de la version précédente dans ce bloc.
-        
-        // --- Fonctions d'aide (calcul, température, distance Sémantique) ---
 
         function levenshteinDistance(s1, s2) {
             s1 = s1.toLowerCase(); s2 = s2.toLowerCase();
@@ -909,13 +1065,17 @@
                 motCell.style.borderLeftColor = getBorderColor(temp.class);
                 motCell.style.borderLeftWidth = '5px';
                 motCell.style.borderLeftStyle = 'solid';
+                motCell.style.textAlign = 'left'; 
+                motCell.style.paddingLeft = '15px';
 
                 const scoreCell = row.insertCell();
                 scoreCell.textContent = essai.score.toFixed(2).replace('.', ',');
                 scoreCell.classList.add('score-cell', scoreColorClass);
+                scoreCell.style.textAlign = 'center';
 
                 const tempCell = row.insertCell();
                 tempCell.innerHTML = `<span class="${temp.class}">${temp.text}</span>`;
+                tempCell.style.textAlign = 'center';
                 
                 tempFragment.appendChild(row);
             });
@@ -1053,7 +1213,7 @@
             resultsDiv.innerHTML = '';
             
             if (!query) {
-                resultsDiv.innerHTML = '<p class="social-info">Veuillez entrer un pseudo à rechercher.</p>';
+                resultsDiv.innerHTML = '<p class="social-info" style="color:#888;">Veuillez entrer un pseudo à rechercher.</p>';
                 return;
             }
 
@@ -1067,17 +1227,17 @@
                     const statusColor = (query.toLowerCase() === myUsername.toLowerCase()) ? '#ff9800' : '#4caf50';
                     
                     resultsDiv.innerHTML = `
-                        <div class="friend-result">
+                        <div class="friend-result" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; padding: 10px 0;">
                             <span class="friend-name"><i class="fa-solid fa-user" style="color:${statusColor}; margin-right: 5px;"></i> ${friendName}</span>
                             <span class="friend-status" style="color: ${statusColor};"><i class="fa-solid fa-circle-dot"></i> En ligne</span>
-                            <button onclick="proposerDefi('${friendName}')">Défier</button>
+                            <button class="new-game-button" onclick="proposerDefi('${friendName}')" style="padding: 5px 10px; font-size: 14px;">Défier</button>
                         </div>
                     `;
                 } 
                 else if (query.length > 0) {
                      resultsDiv.innerHTML = `
                         <p class="social-info" style="color:#f44336;">Aucun joueur correspondant au pseudo "${query}" trouvé.</p>
-                        <p class="social-info" style="margin-top: 15px;">**NOTE :** Cette fonctionnalité nécessite un serveur web réel pour lier les joueurs.</p>
+                        <p class="social-info" style="margin-top: 15px; font-size: 12px; color:#666;">**NOTE :** Cette fonctionnalité nécessite un serveur web réel pour lier les joueurs.</p>
                     `;
                 }
 
@@ -1089,13 +1249,13 @@
         function proposerDefi(ami) {
             const resultsDiv = document.getElementById('searchResults');
             resultsDiv.innerHTML = `
-                <div class="challenge-message">
-                    Défi envoyé à **${ami}** ! ⚔️
-                    <p style="font-weight: 400; font-size: 13px; margin-top: 8px;">
+                <div class="challenge-message" style="background: #2a2a2a; padding: 15px; border-radius: 8px; border: 1px solid #ff9800; text-align: center;">
+                    <p style="font-weight: 700; color:#ffeb3b;">Défi envoyé à **${ami}** ! ⚔️</p>
+                    <p style="font-weight: 400; font-size: 13px; margin-top: 8px; color: #ccc;">
                         Mot secret choisi pour ce défi : **${MOT_DEFI.toUpperCase()}**.
                         Vous allez jouer maintenant. ${ami} devra battre votre score !
                     </p>
-                    <button onclick="lancerDefi()">Commencer le Défi</button>
+                    <button class="new-game-button" onclick="lancerDefi()" style="margin-top: 15px; background-color: #ff9800; color: #1a1a1a;">Commencer le Défi</button>
                 </div>
             `;
             if (ami.includes('(Vous)')) {
@@ -1130,7 +1290,7 @@
             chargerProgression();
             
             document.getElementById('socialPanel').classList.remove('hidden');
-            document.getElementById('searchResults').innerHTML = '<p class="social-info">Défi terminé. Cherchez un nouvel ami ou reprenez les niveaux.</p>';
+            document.getElementById('searchResults').innerHTML = '<p class="social-info" style="color:#888;">Défi terminé. Cherchez un nouvel ami ou reprenez les niveaux.</p>';
             
             document.getElementById('exitChallengeButton').classList.add('hidden'); 
             document.getElementById('normalGameActionButtons').classList.remove('hidden'); 
